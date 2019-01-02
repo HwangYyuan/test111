@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html {width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+        #allmap{width:100%;height:500px;}
+        p{margin-left:5px; font-size:14px;}
+        #wrap{
+            width:200px;
+            height:200px;
+            border:1px solid #ccc;
+            position:absolute;
+            left:0;
+            top:0;
+        }
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=OnOdlD37RqEh1Tf7cFTVB11SkVhDAtEz"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/AreaRestriction/1.2/src/AreaRestriction_min.js"></script>
+    <title>设置地图显示范围</title>
+</head>
+<body>
+    <div id="allmap"></div>
+    <p>将地图显示范围设定在指定区域，地图拖出该区域后会重新弹回。</p>
+</body>
+</html>
+
+<script type="text/javascript">
+
+    //百度地图API功能 
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(113.312213, 23.147267), 13);
+    map.enableScrollWheelZoom();
+
+    var b = new BMap.Bounds(new BMap.Point(113.312213, 23.147267),new BMap.Point(113.332213, 23.147267));
+    try {   
+        BMapLib.AreaRestriction.setBounds(map, b);
+    } catch (e) {
+        alert(e);
+    }
+        var json_data = [[113.31213, 23.143267],[113.312418, 23.147287],[113.352220, 23.147245]];
+    var pointArray = new Array();
+    for(var i=0;i<json_data.length;i++){
+        var marker = new BMap.Marker(new BMap.Point(json_data[i][0], json_data[i][1])); // 创建点
+        map.addOverlay(marker);    //增加点
+        pointArray[i] = new BMap.Point(json_data[i][0], json_data[i][1]);
+        marker.addEventListener("mouseover",attribute);
+    }
+    //让所有点在视野范围内
+    map.setViewport(pointArray);
+    //获取覆盖物位置
+    function attribute(e){
+        var p = e.target;
+        alert(1)
+    }
+</script>
