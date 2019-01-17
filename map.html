@@ -27,7 +27,10 @@
 </html>
 
 <script type="text/javascript">
-
+    function test (a,b){
+        return (a+b)*4
+    }
+    test(4,5)
     //百度地图API功能 
     var map = new BMap.Map("allmap");
     map.centerAndZoom(new BMap.Point(113.312213, 23.147267), 13);
@@ -52,6 +55,6 @@
     //获取覆盖物位置
     function attribute(e){
         var p = e.target;
-        alert(1)
+        
     }
 </script>
